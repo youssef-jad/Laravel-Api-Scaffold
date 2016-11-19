@@ -1,0 +1,5 @@
+apt-get install libmysqlclient-dev
+gem install colorize
+gem install mysql2
+gem install fileutils
+gem install yaml
