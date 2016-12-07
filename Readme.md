@@ -3,7 +3,7 @@
 this Library Used to Generate Laravel 5.2 APi Scaffold Module
 
 __Requirements :__  
-
+Ruby > 2.3
 `1 - apt-get install libmysqlclient-dev -> Ubuntu` <br />
 `2 - gem install colorize `  <br />
 `3 - gem install mysql2`  <br />
