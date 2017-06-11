@@ -115,7 +115,7 @@ class Generator
 
       class #{@@table_name}Controller extends Controller
       {
-          public function __construct()
+          public function __construct(){
 
           }
 
@@ -138,10 +138,9 @@ class Generator
               $data['status'] = new \\stdClass;
               $data['status']->code = 200;
               $data['status']->status = true;
-              return response()->json($data)
+              return response()->json($data);
           }
 
-      }
     HEREDOC
     return block
 
@@ -160,12 +159,12 @@ class Generator
 
     @@columns.each do |col|
       block += <<-TEXT
-        $data['data']->#{col['Field']} = $value['#{col['Field']}'];
+        $data['data']->#{col['Field']} = $#{@@table_name}Obj['#{col['Field']}'];
       TEXT
     end
 
     block += <<~HEREDOC
-           $data['status'] = new \\stdClass;
+            $data['status'] = new \\stdClass;
             $data['status']->status = true;
             $data['status']->code = 200;
          }else{
@@ -173,7 +172,7 @@ class Generator
             $data['status']->status = false;
             $data['status']->code = 204;
          }
-      return response()->json($data)
+          return response()->json($data);
 
        }
     HEREDOC
@@ -184,9 +183,10 @@ class Generator
   def writeControllerStore
 
     block = <<~HEREDOC
-      public function store() ){
+      public function store(){
 
         $input = Input::all();
+        $rules = [];
         $validator = \\Validator::make($input, $rules);
         if ($validator->fails()) {
           $data['status'] = new \\stdClass;
@@ -236,6 +236,7 @@ class Generator
       public function update($id){
 
         $input = Input::all();
+        $rules = [];
         $validator = \\Validator::make($input, $rules);
         if ($validator->fails()) {
           $data['status'] = new \\stdClass;
@@ -291,7 +292,8 @@ class Generator
         $data['status']->status = true;
         $data['status']->message = "Deleted";
         return response()->json($data);
-  }
+  } 
+}
     HEREDOC
 
     return block
